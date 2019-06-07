@@ -1,7 +1,6 @@
 package cpu
 
 import (
-	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -58,7 +57,7 @@ func TimesWithContext(ctx context.Context, percpu bool) ([]TimesStat, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cannot execute kstat: %s", err)
 	}
-	for _, line := range strings.Split(bytes.NewBuffer(kstatSysOut).String(), "\n") {
+	for _, line := range strings.Split(string(kstatSysOut), "\n") {
 		fields := strings.Split(line, ":")
 		if fields[0] != "cpu_stat" {
 			continue
